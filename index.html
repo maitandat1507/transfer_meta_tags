@@ -8,25 +8,33 @@
     <style type="text/css" media="screen">
         textarea {
             width: 500px;
-            height: 300px;
+            height: 150px;
         }
 
     </style>
 </head>
 <body>
-    <textarea name="input" placeholder="input a string"></textarea>
-    <textarea id="output" name="output" placeholder="Output" disabled></textarea> <br>
+    <label>Title</label><br>
+    <textarea id="inTitle" placeholder="input Title"></textarea>
+    <textarea id="outTitle" name="outH1" placeholder="Output Title" disabled></textarea> <br><br>
+
+    <label>Description</label><br>
+    <textarea id="inDescription" placeholder="input Description"></textarea>
+    <textarea id="outDescription" placeholder="Output Description" disabled></textarea> <br><br>
+
+    <label>H1</label><br>
+    <textarea id="inH1" placeholder="input H1"></textarea>
+    <textarea id="outH1" placeholder="Output H1" disabled></textarea> <br><br>
 
     <label>
-        ID
-        <input type="text" name="id">
+        Case ID :
+        <input type="text" id="id">
     </label><br>
 
-    <label><input type="checkbox" name="title">Title</label>
-    <label><input type="checkbox" name="description">Description</label>
-    <label><input type="checkbox" name="h1">H1</label>
+    <button class="clear">Clear</button>
 
-    <button class="submit">Transfer</button>
+    <p id="result">Update query for this case will be shown here!</p>
+    <button class="copy">Copy</button>
 
     <script
         src="https://code.jquery.com/jquery-2.2.4.min.js"

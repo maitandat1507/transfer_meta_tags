@@ -1,15 +1,86 @@
 $(function() {
-    var inputField = $("textarea[name=input]"),
-        outputField = $("textarea#output");
+    // input fields
+    var inTitle = $("#inTitle"),
+        inDesc = $("#inDescription"),
+        inH1 = $("#inH1"),
+        id = $("#id"),
+        rs = $('#result');
 
-    inputField.on('keydown keyup', function() {
+    // output fields
+    var outTitle = $("#outTitle"),
+        outDesc = $("#outDescription"),
+        outH1 = $("#outH1");
+
+    var clearBtn = $(".clear"),
+        copyBtn = $(".copy");
+
+    // Title
+    inTitle.on('keydown keyup paste', function() {
         var self = $(this),
             output = '';
 
         output = convertString(self.val());
 
-        outputField.val("");
-        outputField.val(output);
+        outTitle.val("");
+        outTitle.val(output);
+        generateUpdateQuery();
+    });
+
+    // Description
+    inDesc.on('keydown keyup paste', function() {
+        var self = $(this),
+            output = '';
+
+        output = convertString(self.val());
+
+        outDesc.val("");
+        outDesc.val(output);
+        generateUpdateQuery();
+    });
+
+    // H1
+    inH1.on('keydown keyup paste', function() {
+        var self = $(this),
+            output = '';
+
+        output = convertString(self.val());
+
+        outH1.val("");
+        outH1.val(output);
+        generateUpdateQuery();
+    });
+
+    // id
+    id.on('keydown keyup paste', function() {
+        generateUpdateQuery();
+    });
+
+    // clear content
+    clearBtn.click(function() {
+        inTitle.val("");
+        inDesc.val("");
+        inH1.val("");
+        outTitle.val("");
+        outDesc.val("");
+        outH1.val("");
+        id.val("");
+        rs.text("Update query for this case will be shown here!");
+    });
+
+    // copy content to clipboard
+    copyBtn.click(function() {
+        var el = $('#result');
+        copyToClipboard(el);
+    });
+
+    // clean content when click on box
+    $("#inTitle, #inDescription, #inH1, #id").on('click', function() {
+        var self = $(this),
+            output = self.next("textarea");
+
+        self.val("");
+        output.val("");
+        generateUpdateQuery();
     });
 
     function convertString(content) {
@@ -30,6 +101,38 @@ $(function() {
     }
 
     function generateUpdateQuery() {
-        //
+        var query = "UPDATE mst_moto_meta SET ",
+            title = $('#outTitle').val(),
+            description = $("#outDescription").val(),
+            h1 = $("#outH1").val(),
+            id = $("#id").val(),
+            rs = $('#result');
+
+        query += "`title`=" + '"' + title + '"' + ", " + "`description`=" + '"' + description + '"' + ", " + "`h1`=" + '"' + h1 + '"';
+        query += " WHERE id = " + id;
+
+        rs.text("");
+        rs.text(query);
+    }
+
+    function copyToClipboard(el) {
+        // validate before copy
+        validateString();
+
+        var temp = $("<input>");
+
+        $("body").append(temp);
+        temp.val(el.text()).select();
+        document.execCommand("copy");
+        temp.remove();
+    }
+
+    function validateString() {
+        var content = $("#result").text(),
+            expr = /(\{{1,2}|\$|\}{1,2})/g;
+
+        if (expr.test(content)) {
+            alert("Invalid content!");
+        }
     }
 });
