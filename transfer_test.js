@@ -15,7 +15,7 @@ $(function() {
         copyBtn = $(".copy");
 
     // Title
-    inTitle.on('keydown keyup paste', function() {
+    inTitle.on('keydown keyup paste input', function() {
         var self = $(this),
             output = '';
 
@@ -27,7 +27,7 @@ $(function() {
     });
 
     // Description
-    inDesc.on('keydown keyup paste', function() {
+    inDesc.on('keydown keyup paste input', function() {
         var self = $(this),
             output = '';
 
@@ -39,7 +39,7 @@ $(function() {
     });
 
     // H1
-    inH1.on('keydown keyup paste', function() {
+    inH1.on('keydown keyup paste input', function() {
         var self = $(this),
             output = '';
 
@@ -51,7 +51,7 @@ $(function() {
     });
 
     // id
-    id.on('keydown keyup paste', function() {
+    id.on('keydown keyup paste input', function() {
         generateUpdateQuery();
     });
 
