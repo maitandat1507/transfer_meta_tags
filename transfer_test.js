@@ -13,6 +13,8 @@ $(function() {
     });
 
     function convertString(content) {
+
+        // convert variable match with variable in db
         content = content.replace(/\{{1,2}\$maker_name\}{1,2}/g, "@@maker@@");
         content = content.replace(/\{{1,2}\$disp_name2\}{1,2}/g, "@@displacement@@");
         content = content.replace(/\{{1,2}\$category_name\}{1,2}/g, "@@category@@");
@@ -25,5 +27,9 @@ $(function() {
         content = content.replace(/\{{1,2}\$area_all_todouhuken\}{1,2}/g, "@@pref@@");
 
         return content;
+    }
+
+    function generateUpdateQuery() {
+        //
     }
 });
